@@ -28,16 +28,30 @@ namespace KeySender
                 try
                 {
                     Console.WriteLine($"[{DateTime.Now}] Попытка прочитать конф. файл...");
-                    using (StreamReader sr = new StreamReader("oper.txt"))
+                    using (StreamReader sr = new StreamReader("./oper.txt"))
                     {
                         lOperation = sr.ReadLine();
-                        Console.WriteLine($"[{DateTime.Now}] Конф. строка успешно прочитана и записана");
-                        statError = true;
+                        if (lOperation == null)
+                        {
+                            Console.WriteLine($"[{DateTime.Now}] Конф. файл пустой!");
+                            throw new System.ArgumentNullException();
+                            statError = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"[{DateTime.Now}] Конф. строка успешно прочитана и записана");
+                            statError = true;
+                        }
                     }
                 }
-                catch (Exception e)
+                catch (System.IO.FileNotFoundException e)
                 {
-                    Console.WriteLine($"[{DateTime.Now}] Ошибка: {e}. Чтение файла произойдет повторно через 10 секунд.");
+                    Console.WriteLine($"[{DateTime.Now}] Ошибка: Файл не найден. Чтение файла произойдет повторно через 10 секунд.");
+                    Thread.Sleep(sTimeSecond);
+                }
+                catch (System.ArgumentNullException e)
+                {
+                    Console.WriteLine($"[{DateTime.Now}] Ошибка: Пустая строка. Чтение файла произойдет повторно через 10 секунд.");
                     Thread.Sleep(sTimeSecond);
                 }
             }
