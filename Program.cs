@@ -16,11 +16,11 @@ namespace KeySender
         static void Main(string[] args)
         {
             Console.Title = "AutoKeySender";
-            //int sTimeFirst = 100000;
+            int sTimeFirst = 100000;
             int sTimeSecond = 10000;
             Console.Write("Запуск...");
 
-            //Thread.Sleep(sTimeSecond);
+            Thread.Sleep(sTimeFirst);
             string lOperation = "";
             bool statError = false;
             while (statError == false)
